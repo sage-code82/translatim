@@ -17,6 +17,8 @@ function App() {
     event.preventDefault();
     const API = `http://localhost:8080/translate?word=${word}&from=${from}&to=${to}`;
     const res = await axios.get(API);
+    const APIPIC = ``;
+    const resAPIPIC = await axios.get(APIPIC);
 
     setTranslation(res.data.translation);
     console.log(translation);
