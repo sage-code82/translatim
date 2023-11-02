@@ -11,13 +11,10 @@ function App() {
 
   async function handleTranslate(event) {
     event.preventDefault();
-    const API = `http://localhost:8080/translate?word=${word}&from=${from}&to=${to}`;
+    const API = `https://translatim-rhsp.onrender.com/translate?word=${word}&from=${from}&to=${to}`; // swap with my onrender link
     const res = await axios.get(API);
-    const APIPIC = `https://api.unsplash.com/search/photos?client_id=${process.env.UNSPLASH_ACCESS_KEY}&query=${res.data.responseData.translatedText}`;
-    const resAPIPIC = await axios.get(APIPIC);
-
     setTranslation(res.data.translation);
-    setImage(resAPIPIC.data.results[0].urls.regular);
+    setImage(res.data.image); // was I overthinking do I only need this line?
   }
 
   return (
@@ -26,6 +23,7 @@ function App() {
         className="background-image"
         style={{ backgroundImage: `url(${image})` }}
       />
+      <h1>Now Thats What I Call A Translator</h1>
       <form onSubmit={handleTranslate}>
         <div className="container">
           <select onChange={(event) => setFrom(event.target.value)}>
