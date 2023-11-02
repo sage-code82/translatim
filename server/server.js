@@ -8,18 +8,9 @@ const axios = require("axios");
 
 app.get("/", (_, response) => response.json("Root route for translatim"));
 
-// add your endpoints here
-// copy and past query here
 app.get("/translate", async (request, response) => {
-  // from the client to the server
-  //word to from
-  // const word = request.query.word;
-  // const from = request.query.from;
-  // const to = request.query.to;
-
   const { word, from, to } = request.query;
 
-  // Make API call always use back ticks
   const API = `https://api.mymemory.translated.net/get?q=${word}&langpair=${from}|${to}`; // test in server
   const res = await axios.get(API);
   const APIPIC = `https://api.unsplash.com/search/photos?client_id=${process.env.UNSPLASH_ACCESS_KEY}&query=${res.data.responseData.translatedText}`;

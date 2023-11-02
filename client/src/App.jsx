@@ -3,29 +3,29 @@ import "./App.css";
 import axios from "axios";
 
 function App() {
-  // store our from and to language in state
   const [from, setFrom] = useState("en");
   const [to, setTo] = useState("en");
-  // store the word we want to translate in state
   const [word, setWord] = useState("");
   const [translation, setTranslation] = useState("");
-
-  // on change finction for the input of the word we want to translate
-  // onsubmit function that calls our API to get the translation
+  const [image, setImage] = useState(""); // set as blank for now, but will try and do a background image
 
   async function handleTranslate(event) {
     event.preventDefault();
     const API = `http://localhost:8080/translate?word=${word}&from=${from}&to=${to}`;
     const res = await axios.get(API);
-    const APIPIC = ``;
+    const APIPIC = `https://api.unsplash.com/search/photos?client_id=${process.env.UNSPLASH_ACCESS_KEY}&query=${res.data.responseData.translatedText}`;
     const resAPIPIC = await axios.get(APIPIC);
 
     setTranslation(res.data.translation);
-    console.log(translation);
+    setImage(resAPIPIC.data.results[0].urls.regular);
   }
 
   return (
     <>
+      <div
+        className="background-image"
+        style={{ backgroundImage: `url(${image})` }}
+      />
       <form onSubmit={handleTranslate}>
         <div className="container">
           <select onChange={(event) => setFrom(event.target.value)}>
