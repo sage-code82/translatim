@@ -7,21 +7,22 @@ function App() {
   const [to, setTo] = useState("en");
   const [word, setWord] = useState("");
   const [translation, setTranslation] = useState("");
-  const [image, setImage] = useState(""); // set as blank for now, but will try and do a background image
+  const [img_url, setImage] = useState(""); // set as blank for now, but will try and do a background image
 
   async function handleTranslate(event) {
     event.preventDefault();
     const API = `https://translatim-rhsp.onrender.com/translate?word=${word}&from=${from}&to=${to}`; // swap with my onrender link
+    // const API = `http://localhost:8080/translate?word=${word}&from=${from}&to=${to}`;
     const res = await axios.get(API);
     setTranslation(res.data.translation);
-    setImage(res.data.image); // was I overthinking do I only need this line?
+    setImage(res.data.img_url); // was I overthinking do I only need this line?
   }
 
   return (
     <>
       <div
         className="background-image"
-        style={{ backgroundImage: `url(${image})` }}
+        style={{ backgroundImage: `url(${img_url})` }}
       />
       <h1>Now Thats What I Call A Translator</h1>
       <form onSubmit={handleTranslate}>

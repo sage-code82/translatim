@@ -13,7 +13,7 @@ app.get("/translate", async (request, response) => {
 
   const API = `https://api.mymemory.translated.net/get?q=${word}&langpair=${from}|${to}`;
   const res = await axios.get(API);
-  const APIPIC = `https://api.unsplash.com/search/photos?client_id=${process.env.UNSPLASH_ACCESS_KEY}&query=${res.data.responseData.translatedText}`;
+  const APIPIC = `https://api.unsplash.com/search/photos?client_id=${process.env.UNSPLASH_ACCESS_KEY}&query=${word}`; // changing translatedText to word to see if that fixes the pciture error
   const resAPIPIC = await axios.get(APIPIC);
   console.log(APIPIC);
 
